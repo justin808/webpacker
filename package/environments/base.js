@@ -4,7 +4,7 @@
 const { basename, dirname, join, relative, resolve } = require('path')
 const extname = require('path-complete-extname')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
-const { sync } = require('glob')
+const { globSync } = require('glob')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
@@ -16,7 +16,7 @@ const getEntryObject = () => {
   const entries = {}
   const rootPath = join(config.source_path, config.source_entry_path)
 
-  sync(`${rootPath}/**/*.*`).forEach((path) => {
+  globSync(`${rootPath}/**/*.*`).forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
     let assetPaths = resolve(path)
